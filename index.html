@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCL CF Relay — personal CurseForge API relay</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.65 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+         background: #0f1216; color: #d7dde5; }
+  main { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
+  h1 { font-size: 30px; margin: 0 0 8px; color: #fff; letter-spacing: -.01em; }
+  .sub { color: #7d8896; margin-bottom: 36px; }
+  h2 { font-size: 18px; margin: 36px 0 10px; color: #fff; }
+  p, li { color: #b6c0cc; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+  code { background: #1a2028; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+  pre { background: #141a21; border: 1px solid #232b35; border-radius: 10px; padding: 14px 16px; overflow: auto; font-size: 13.5px; }
+  a { color: #6aa9ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+  .card { border: 1px solid #232b35; border-radius: 10px; padding: 14px 16px; background: #131920; }
+  .card b { color: #e8eef6; display: block; margin-bottom: 4px; font-size: 14px; }
+  .card span { color: #8b96a3; font-size: 13.5px; }
+  footer { margin-top: 48px; border-top: 1px solid #232b35; padding-top: 18px; color: #6f7a87; font-size: 13.5px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>PCL CF Relay</h1>
+  <div class="sub">A minimal, self-hosted CurseForge API relay for a personal Plain Craft Launcher installation.</div>
+
+  <p>
+    This is a <b>personal-use</b> project. It exists because Plain Craft Launcher 2.13.1.1 ships a hard-coded
+    CurseForge API key that was revoked in 2026, so CurseForge search, version lookup and file downloads fail with
+    <code>403</code>. Instead of putting an API key inside a client binary, the key stays on my own server.
+  </p>
+
+  <div class="grid">
+    <div class="card"><b>No key in the client</b><span>The launcher only knows a relay domain. The API key lives in a server-side environment file.</span></div>
+    <div class="card"><b>Single user</b><span>The relay serves exactly one launcher installation and is not offered as a public API.</span></div>
+    <div class="card"><b>Author-friendly</b><span>Only files that authors published on CurseForge / Modrinth are requested, following their distribution settings.</span></div>
+    <div class="card"><b>Revocable</b><span>The key can be rotated at any time; the relay is shut down if misuse is detected.</span></div>
+  </div>
+
+  <h2>Routing</h2>
+  <pre>PCL  ->  https://&lt;domain&gt;/  ->  Caddy (HTTPS)  ->  127.0.0.1:8088
+                                               |- /curseforge/* -> api.curseforge.com (x-api-key injected)
+                                               |- /modrinth/*   -> api.modrinth.com
+                                               |- /files/*      -> edge.forgecdn.net (key injected when set)
+                                               \- /data/*       -> cdn.modrinth.com</pre>
+
+  <h2>Source</h2>
+  <p>Code and deployment notes: <a href="https://github.com/shenyizhi372-glitch/pcl-cf-relay">github.com/shenyizhi372-glitch/pcl-cf-relay</a></p>
+
+  <h2>Contact</h2>
+  <p>shenyizhi372@gmail.com · personal website: <a href="https://shenyizhi.xyz">shenyizhi.xyz</a></p>
+
+  <footer>
+    Personal project — provided as-is, no support. Not affiliated with CurseForge, Overwolf or the PCL authors.
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[Unit]
+Description=PCL CF Relay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/pcl-cf-relay
+EnvironmentFile=/opt/pcl-cf-relay/cf-relay.env
+ExecStart=/usr/bin/python3 /opt/pcl-cf-relay/proxy.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

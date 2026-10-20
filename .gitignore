@@ -1,0 +1,5 @@
+*.env
+cf-relay.env
+__pycache__/
+*.pyc
+.DS_Store
